@@ -9,6 +9,7 @@ export class DataService {
   public authStatus$ = new BehaviorSubject<boolean>(false);
   public alertMessage$ = new Subject<string>();
   public currentCount$ = new Subject<number>();
+  public todoId$ = new Subject<number>();
 
   constructor() { }
 
@@ -23,4 +24,9 @@ export class DataService {
   public setCurrentCount(count: number) {
     this.currentCount$.next(count);
   }
+
+  public setTodoId(id: number) {
+    this.todoId$.next(id);
+  }
+
 }

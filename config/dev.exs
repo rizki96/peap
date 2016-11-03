@@ -39,8 +39,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :peap_demo, PeapDemo.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "iskandarrizki",
+  password: "",
   database: "peap_demo_dev",
   hostname: "localhost",
   pool_size: 10

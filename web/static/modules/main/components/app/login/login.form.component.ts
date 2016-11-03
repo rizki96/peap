@@ -7,6 +7,9 @@ import { ApiService } from '../../../support/services';
   styles: [ require('./login.form.component.scss') ],
   template: `
   <div class="form-container">
+    Demo user: <strong>demo@example.com</strong><br />
+    password: <strong>foo</strong>
+
     <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <input type="email" class="form-control" placeholder="Email" required

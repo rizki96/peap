@@ -2,6 +2,7 @@ defmodule PeapDemo.Data do
 
   alias PeapDemo.Data.Api
   alias PeapDemo.User
+  alias PeapDemo.Todo
 
   def schema do
     %GraphQL.Schema{
@@ -21,6 +22,22 @@ defmodule PeapDemo.Data do
                 email: %{type: %GraphQL.Type.String{}}
               }
             }
+          },
+          get_todos: %{
+            description: "My Todo List",
+            args: %{},
+            resolve: {Api, :get_todos},
+            type: %GraphQL.Type.List{
+              ofType: %GraphQL.Type.ObjectType{
+                name: "Todo",
+                description: "My Todo List",
+                fields: %{
+                  id: %{type: %GraphQL.Type.Int{}},
+                  task: %{type: %GraphQL.Type.String{}},
+                  status: %{type: %GraphQL.Type.String{}}
+                }
+              }
+            }
           }
         }
       },
@@ -29,12 +46,55 @@ defmodule PeapDemo.Data do
         fields: %{
           increment: %{
             description: "Increment the counter",
-            args: %{ by: %{ type: %GraphQL.Type.Int{} }},
+            args: %{by: %{ type: %GraphQL.Type.Int{} }},
             resolve: {Api, :increment_counter},
             type: %GraphQL.Type.ObjectType{
               name: "NumberHolder",
               fields: %{
                 current_value: %{type: %GraphQL.Type.Int{}}
+              }
+            }
+          },
+          add_todo: %{
+            description: "Add one Todo",
+            args: %{task: %{type: %GraphQL.Type.String{}}, 
+                    status: %{type: %GraphQL.Type.String{}}},
+            resolve: {Api, :add_todo},
+            type: %GraphQL.Type.ObjectType{
+              name: "AddedTodoHolder",
+              fields: %{
+                id: %{type: %GraphQL.Type.Int{}},
+                task: %{type: %GraphQL.Type.String{}},
+                status: %{type: %GraphQL.Type.String{}}
+              }
+            }
+          },
+          remove_todo: %{
+            description: "Remove one Todo",
+            args: %{todo_id: %{type: %GraphQL.Type.Int{}}},
+            resolve: {Api, :remove_todo},
+            type: %GraphQL.Type.ObjectType{
+              name: "RemovedTodoHolder",
+              fields: %{
+                id: %{type: %GraphQL.Type.Int{}},
+                task: %{type: %GraphQL.Type.String{}},
+                status: %{type: %GraphQL.Type.String{}}
+              }
+            }
+          },
+          update_todo: %{
+            description: "Update one Todo",
+            args: %{
+              todo_id: %{type: %GraphQL.Type.Int{}},
+              status: %{type: %GraphQL.Type.String{}}
+            },
+            resolve: {Api, :update_todo},
+            type: %GraphQL.Type.ObjectType{
+              name: "UpdatedTodoHolder",
+              fields: %{
+                id: %{type: %GraphQL.Type.Int{}},
+                task: %{type: %GraphQL.Type.String{}},
+                status: %{type: %GraphQL.Type.String{}}
               }
             }
           }

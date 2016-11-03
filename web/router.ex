@@ -27,6 +27,7 @@ defmodule PeapDemo.Router do
     pipe_through :secure_api
 
     get "/whoami", SecureApiController, :whoami
+    get "/todos", SecureApiController, :get_todos
   end
 
   scope "/api" do

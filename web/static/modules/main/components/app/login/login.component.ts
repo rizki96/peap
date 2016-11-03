@@ -15,6 +15,7 @@ export class LoginComponent {
 
   onSuccessFullLogin() {
     let returnUrl = this.route.snapshot.params['returnUrl'];
+
     if (returnUrl) {
       let decodedReturnUrl = decodeURIComponent(returnUrl);
       this.router.navigateByUrl(decodedReturnUrl);

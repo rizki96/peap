@@ -37,6 +37,9 @@ export class SocketService {
       channel.on('current_count', payload => {
         dataService.setCurrentCount(payload.body);
       });
+      channel.on('todo_id', payload => {
+        dataService.setTodoId(payload.body);
+      });
       channel.join()
         .receive('ok', resp => {
           observer.next(resp);

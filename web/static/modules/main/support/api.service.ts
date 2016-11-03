@@ -3,6 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../models/user';
+import { Todo } from '../models/todo';
 import { SocketService } from './socket.service';
 import { DataService } from './data.service';
 import { LocalStorage } from './localstorage.service';
@@ -12,6 +13,7 @@ export class ApiService {
   name: string = 'ApiService';
   token: string = null;
   user: User;
+  todos: Todo[];
 
   constructor(private http: Http, private socketService: SocketService,
     private dataService: DataService, private localStorageService: LocalStorage) {
@@ -64,10 +66,39 @@ export class ApiService {
     return this.user;
   }
 
+  public getTodos(): Todo[] {
+    return this.todos;
+  }
+
   public incrementBy(by: number): Observable<any> {
     return this.sendGraphqlQuery(`mutation Mutation {increment(by: ${by}) { current_value }}`).map(
       result => this.dataService.setCurrentCount(result.data.increment.current_value)
     );
+  }
+
+  public addTodo(task: string, status: string): Observable<any> {
+    return this.sendGraphqlQuery(`mutation Mutation {add_todo(task: \"${task}\",status: \"${status}\") { id, task, status}}`).map(
+      result => {
+        this.dataService.setTodoId(result.data.add_todo.id);
+        return result.data.add_todo.id;
+      }
+    );
+  }
+
+  public updateTodo(todo_id: number, status: string): Observable<any> {
+    return this.sendGraphqlQuery(`mutation Mutation {update_todo(todo_id: ${todo_id}, status: \"${status}\") { id, task, status}}`).map(
+      result => {
+        this.dataService.setTodoId(result.data.update_todo.id);
+        return result.data.update_todo.id;
+      });
+  }
+
+  public removeTodo(todo_id: number): Observable<any> {
+    return this.sendGraphqlQuery(`mutation Mutation {remove_todo(todo_id: ${todo_id}) { id, task, status}}`).map(
+      result => {
+        this.dataService.setTodoId(result.data.remove_todo.id);
+        return result.data.remove_todo.id;
+      });
   }
 
   getUserImpl(): Observable<User> {
@@ -93,6 +124,14 @@ export class ApiService {
 
   getUserSockets(): Observable<any> {
     return this.socketService.callApi('graphql', { query: '{whoami { id, name, email }}' });
+  }
+
+  getTodosRest(): Observable<any> {
+    return this.getJson('/api/todos');
+  }
+
+  getTodosGraphql(): Observable<any> {
+    return this.sendGraphqlQuery('{get_todos [{ id, task, status }]}');
   }
 
   sendGraphqlQuery(query): Observable<any> {

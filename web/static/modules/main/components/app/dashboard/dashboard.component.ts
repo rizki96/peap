@@ -8,6 +8,10 @@ import { ApiService, DataService, SocketService } from '../../../support/service
   styles: [ require('./dashboard.component.scss') ],
   template: `
     <div class="dashboard page-header">
+      <div class="controls-left">
+        <div><a href="/dashboard">Dashboard</a></div>&nbsp;&nbsp;
+        <div><a href="/todo">My Todo List</a></div>&nbsp;&nbsp;
+      </div>
       <div class="controls">
         <div>Welcome, {{userName}} ({{userEmail}})</div>
         <button class="btn btn-link" (click)="logout()">Logout</button>
