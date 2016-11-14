@@ -7,16 +7,6 @@ import { ApiService, DataService, SocketService } from '../../../support/service
   selector: 'dashboard-component',
   styles: [ require('./dashboard.component.scss') ],
   template: `
-    <div class="dashboard page-header">
-      <div class="controls-left">
-        <div><a href="/dashboard">Dashboard</a></div>&nbsp;&nbsp;
-        <div><a href="/todo">My Todo List</a></div>&nbsp;&nbsp;
-      </div>
-      <div class="controls">
-        <div>Welcome, {{userName}} ({{userEmail}})</div>
-        <button class="btn btn-link" (click)="logout()">Logout</button>
-      </div>
-    </div>
     <div class="main-content">
       <div class="increment-container">
         <button class="btn btn-default" (click)="incrementBy(1)">Increment</button>

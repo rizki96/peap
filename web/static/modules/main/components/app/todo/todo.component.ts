@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { User } from '../../../models/user';
@@ -9,16 +9,6 @@ import { ApiService, DataService, SocketService } from '../../../support/service
   selector: 'todo-component',
   styles: [ require('./todo.component.scss') ],
   template: `
-    <div class="todo page-header">
-      <div class="controls-left">
-        <div><a href="/dashboard">Dashboard</a></div>&nbsp;&nbsp;
-        <div><a href="/todo">My Todo List</a></div>&nbsp;&nbsp;
-      </div>
-      <div class="controls">
-        <div>Welcome, {{userName}} ({{userEmail}})</div>
-        <button class="btn btn-link" (click)="logout()">Logout</button>
-      </div>
-    </div>
     <div class="main-content">
         <todo-form-component (onSuccess)="onAddedSuccess($event)"></todo-form-component>
     </div>
@@ -28,7 +18,7 @@ import { ApiService, DataService, SocketService } from '../../../support/service
   `
 })
 
-export class TodoComponent {
+export class TodoComponent implements OnInit {
     private userName: string;
     private userEmail: string;
     private triggerId: number;

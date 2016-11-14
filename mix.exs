@@ -19,7 +19,7 @@ defmodule PeapDemo.Mixfile do
   def application do
     [mod: {PeapDemo, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-      :phoenix_ecto, :postgrex, :comeonin, :plug_graphql, :phoenix_pubsub]]
+      :phoenix_ecto, :sqlite_ecto, :comeonin, :plug_graphql, :phoenix_pubsub]]
   end
 
   # Specifies which paths to compile per environment.
@@ -33,12 +33,15 @@ defmodule PeapDemo.Mixfile do
   defp deps do
     [{:phoenix, "~> 1.2"},
      {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.0"},
+     {:ecto, "~> 1.1"},
+     {:phoenix_ecto, ">= 1.0.0"},
      {:phoenix_html, "~> 2.4"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:postgrex, ">= 0.0.0"},
+     #{:postgrex, ">= 0.0.0"},
+     {:sqlite_ecto, ">= 1.1.0"},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
+     {:poison, "~> 1.0"},
      {:joken, "~> 1.3"},
      {:guardian, "~> 0.13.0"},
      {:comeonin, "~> 2.4"},

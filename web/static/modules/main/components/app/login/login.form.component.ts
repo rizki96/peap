@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Credentials } from './credentials';
+import { User } from '../../../models/user';
 import { ApiService } from '../../../support/services';
 
 @Component({
@@ -27,7 +28,7 @@ import { ApiService } from '../../../support/services';
   `,
 })
 export class LoginFormComponent {
-  @Output() onSuccess = new EventEmitter();
+  @Output() onSuccess: EventEmitter<User> = new EventEmitter<User>();
 
   constructor( private apiService: ApiService ) {}
 
@@ -38,7 +39,7 @@ export class LoginFormComponent {
     this.message = null;
     this.submitted = true;
     this.apiService.login(this.model.email, this.model.password).subscribe(
-      user => this.onSuccess.emit(true),
+      user => this.onSuccess.emit(user),
       error => {
         this.message = 'Please try again';
       }

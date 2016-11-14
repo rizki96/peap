@@ -4,6 +4,11 @@ import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../models/user';
 import { Todo } from '../models/todo';
+/*
+import { SocketService } from './services';
+import { DataService } from './services';
+import { LocalStorage } from './services';
+*/
 import { SocketService } from './socket.service';
 import { DataService } from './data.service';
 import { LocalStorage } from './localstorage.service';

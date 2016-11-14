@@ -15,6 +15,6 @@ defmodule PeapDemo.Todo do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:task, :status])
-    |> validate_required([:task, :status])
+    #|> validate_required([:task, :status])
   end
 end
