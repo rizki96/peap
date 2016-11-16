@@ -16,43 +16,54 @@ import { AuthGuard } from '../../../support/guards';
     template: `
         <nav class="navbar navbar-default">
             <div class="container-fluid">
-            <div class="navbar-header">
                 <a class="navbar-brand" href="#">Data Editor</a>
-                <!--div class="page-header"-->
-                    <div *ngIf="userInfo" id="navbar" class="">
-                        <!--ul class="nav navbar-nav">
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul-->
-                        <!--ul class="nav navbar-nav navbar-right pull-right">
-                            <li><div class="">Welcome, {{userInfo.name}} ({{userInfo.email}})</div></li>
-                            <li><a href="javascript:void(0)" class="btn btn-link" (click)="logout()">Logout</a></li>
-                        </ul-->
-                        <div class="controls">
-                            <div class="pull-right">
-                                <a href="javascript:void(0)" class="btn btn-link" (click)="logout()">Logout</a>
-                            </div>
-                            <div class="pull-right">Welcome, {{userInfo.name}} ({{userInfo.email}})</div>
-                        </div>
-                    </div>
-                <!--/div-->
-            </div>
+                <div class="navbar-header navbar-right">
+                    <ul class="nav navbar-nav pull-right" *ngIf="userInfo">
+                        <li><a href="javascript:void(0)">Welcome, {{userInfo.name}} ({{userInfo.email}})</a></li>
+                        <li><a href="javascript:void(0)" class="btn btn-link" (click)="logout()">Logout</a></li>
+                    </ul>
+                </div>
             </div>
         </nav>
+        <tabset *ngIf="userInfo">
+            <tab *ngFor="let tb of tabNames" 
+                (select)="onTabSelect(tb)" 
+                [heading]="tb.title"
+                [active]="tb.active"
+                (select)="tb.active = true"
+                (deselect)="tb.active = false"
+            >
+                <div>
+                    <p style="margin-top:20px;">
+                    </p>
+                </div>
+            </tab>
+        </tabset>
     `
 })
 
 export class MenubarComponent implements OnInit, OnChanges {
 
     @Input() userInfo;
+    public tabNames: Array<any> = [
+        {name: 'dashboard', title: 'Dashboard'},
+        {name: 'todo', title: 'Todo List'}
+    ];
 
     constructor(private apiService: ApiService,
                 private eventService: EventService,
                 private router: Router) {
     }
 
+    public setActiveTab(index: number): void {
+        this.tabNames[index].active = true;
+    };
+
     ngOnInit(): void {
         console.log('ngOnInitMenubar');
+        this.eventService.pageIndex.subscribe(
+            (idx) => this.setActiveTab(idx)
+        );
     }
 
     ngOnChanges(): void {
@@ -60,18 +71,14 @@ export class MenubarComponent implements OnInit, OnChanges {
         console.log(this.userInfo);
     }
 
-    showNonLoginMenubar(): void {
-
-    }
-
-    showHasLoginMenubar(): void {
-
-    }
-
     logout(): void {
         this.userInfo = null;
         this.apiService.logout();
         this.router.navigateByUrl('/login');
+    }
+
+    onTabSelect(currentTab: any): void {
+        this.router.navigateByUrl('/' + currentTab.name);
     }
 
 }

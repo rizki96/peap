@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { User } from '../../../models/user';
 
-import { ApiService, DataService, SocketService } from '../../../support/services';
+import { ApiService, DataService, SocketService, EventService } from '../../../support/services';
 
 @Component({
   selector: 'todo-component',
@@ -24,7 +24,8 @@ export class TodoComponent implements OnInit {
     private triggerId: number;
 
     constructor( private apiService: ApiService, private router: Router,
-                private socketService: SocketService, private dataService: DataService ) {
+                private socketService: SocketService, private dataService: DataService,
+                private eventService: EventService ) {
     }
 
     ngOnInit(): void {
@@ -41,6 +42,7 @@ export class TodoComponent implements OnInit {
             }
         });
         }
+        this.eventService.pageIndex.emit(1);
     }
 
     setupComponent(): void {
@@ -64,7 +66,7 @@ export class TodoComponent implements OnInit {
     }
 
     onAddedSuccess(event: number): void {
-        //this.triggerId = event;
+
     }
 
 };

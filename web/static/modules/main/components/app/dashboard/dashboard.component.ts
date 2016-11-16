@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../../../models/user';
-import { ApiService, DataService, SocketService } from '../../../support/services';
+import { ApiService, DataService, SocketService, EventService } from '../../../support/services';
 
 @Component({
   selector: 'dashboard-component',
@@ -21,7 +21,8 @@ export class DashboardComponent {
   private currentCount: number;
 
   constructor( private apiService: ApiService, private router: Router,
-    private socketService: SocketService, private dataService: DataService ) {
+    private socketService: SocketService, private dataService: DataService,
+    private eventService: EventService ) {
   }
 
   ngOnInit() {
@@ -38,6 +39,7 @@ export class DashboardComponent {
         }
       });
     }
+    this.eventService.pageIndex.emit(0);
   }
 
   setupComponent() {
