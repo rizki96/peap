@@ -40,9 +40,17 @@ config :phoenix, :stacktrace_depth, 20
 config :peap_demo, PeapDemo.Repo,
   adapter: Sqlite.Ecto,
   database: "db/peap.sqlite"
+
   #adapter: Ecto.Adapters.Postgres,
   #username: "iskandarrizki",
   #password: "",
   #database: "peap_demo_dev",
+  #hostname: "localhost",
+  #pool_size: 10
+
+  #adapter: Ecto.Adapters.MySQL,
+  #username: "root",
+  #password: "",
+  #database: "dfresh_mysql_dev",
   #hostname: "localhost",
   #pool_size: 10

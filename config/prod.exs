@@ -63,3 +63,21 @@ config :logger, level: :info
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
 import_config "prod.secret.exs"
+
+# Configure your database
+config :peap_demo, PeapDemo.Repo,
+  adapter: Sqlite.Ecto,
+  database: "db/peap_prod.sqlite"
+
+  #adapter: Ecto.Adapters.Postgres,
+  #username: "iskandarrizki",
+  #password: "",
+  #database: "peap_demo_prod",
+  #hostname: "localhost",
+  #pool_size: 20
+
+  #adapter: Ecto.Adapters.MySQL,
+  #username: "root",
+  #password: "",
+  #database: "peap_demo_prod",
+  #pool_size: 20
