@@ -51,6 +51,6 @@ config :peap_demo, PeapDemo.Repo,
   #adapter: Ecto.Adapters.MySQL,
   #username: "root",
   #password: "",
-  #database: "dfresh_mysql_dev",
+  #database: "peap_demo_dev",
   #hostname: "localhost",
   #pool_size: 10

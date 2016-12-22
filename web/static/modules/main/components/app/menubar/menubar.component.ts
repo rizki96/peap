@@ -16,7 +16,7 @@ import { AuthGuard } from '../../../support/guards';
     template: `
         <nav class="navbar navbar-default">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Data Editor</a>
+                <a class="navbar-brand" href="#">Phoenix Demo</a>
                 <div class="navbar-header navbar-right">
                     <ul class="nav navbar-nav pull-right" *ngIf="userInfo">
                         <li><a href="javascript:void(0)">Welcome, {{userInfo.name}} ({{userInfo.email}})</a></li>

@@ -30,6 +30,18 @@ defmodule PeapDemo.ApiController do
     json conn, %{ result: "ok" }
   end
 
+  def test_user_api(conn, params) do
+    users = 
+      from(u in User, order_by: [desc: u.id])
+      |> Repo.all
+    #IO.puts inspect(users)
+    json conn, %{ result: users }
+  end
+
+  def test_nodb_api(conn, params) do
+    json conn, %{ result: "ok" }
+  end
+
   defp send_unauthorized(conn) do
     conn
     |> put_status(401)

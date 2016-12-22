@@ -1,6 +1,7 @@
 defmodule PeapDemo.Todo do
   use PeapDemo.Web, :model
 
+  @derive {Poison.Encoder, only: [:task, :status, :user, :inserted_at, :updated_at]}
   schema "todos" do
     field :task, :string
     field :status, :string

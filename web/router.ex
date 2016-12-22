@@ -21,6 +21,8 @@ defmodule PeapDemo.Router do
     pipe_through :api
     post "/token", ApiController, :create_token
     get "/send_message", ApiController, :send_broadcast
+    get "/test_users", ApiController, :test_user_api
+    get "/test_nodb", ApiController, :test_nodb_api
   end
 
   scope "/api", PeapDemo do

@@ -1,6 +1,7 @@
 defmodule PeapDemo.User do
   use PeapDemo.Web, :model
 
+  @derive {Poison.Encoder, only: [:name, :email, :inserted_at, :updated_at]}
   schema "users" do
     field :name, :string
     field :email, :string
