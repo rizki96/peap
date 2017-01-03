@@ -2,7 +2,32 @@ defmodule PeapDemo.Data do
 
   alias PeapDemo.Data.Api
   alias PeapDemo.User
-  alias PeapDemo.Todo
+  #alias PeapDemo.Todo
+
+  def root_value(conn = %Plug.Conn{}) do
+    user = Guardian.Plug.current_resource(conn)
+    root_value(user)
+  end
+
+  def root_value(user = %User{}) do
+    %{ user: user }
+  end
+
+  def execute(query, conn = %Plug.Conn{}) do
+    execute(query, root_value(conn))
+  end
+
+  def execute(query, user = %User{}) do
+    execute(query, root_value(user))
+  end
+
+  def execute(query, root_value) do
+    GraphQL.execute(
+      schema,
+      query,
+      root_value
+    )
+  end
 
   def schema do
     %GraphQL.Schema{
@@ -101,31 +126,6 @@ defmodule PeapDemo.Data do
         }
       }
     }
-  end
-
-  def root_value(conn = %Plug.Conn{}) do
-    user = Guardian.Plug.current_resource(conn)
-    root_value(user)
-  end
-
-  def root_value(user = %User{}) do
-    %{ user: user }
-  end
-
-  def execute(query, conn = %Plug.Conn{}) do
-    execute(query, root_value(conn))
-  end
-
-  def execute(query, user = %User{}) do
-    execute(query, root_value(user))
-  end
-
-  def execute(query, root_value) do
-    GraphQL.execute(
-      schema,
-      query,
-      root_value
-    )
   end
 
 end

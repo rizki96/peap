@@ -39,7 +39,7 @@ defmodule PeapDemo.Mixfile do
      {:gettext, "~> 0.11"},
      {:guardian, "~> 0.13.0"},
      {:comeonin, "~> 2.4"},
-     {:plug_graphql, "~> 0.2"},
+     {:plug_graphql, "~> 0.3"},
      {:exrm, "~> 1.0.8"},
      {:cowboy, "~> 1.0"}]
   end

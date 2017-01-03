@@ -35,9 +35,8 @@ defmodule PeapDemo.Router do
   scope "/api" do
     pipe_through :secure_api
 
-    forward "/graphql", GraphQL.Plug.Endpoint,
-      schema: {PeapDemo.Data, :schema},
-      root_value: {PeapDemo.Data, :root_value}
+    get "/graphql", GraphQL.Plug.Endpoint, schema: {PeapDemo.Data, :schema}, root_value: {PeapDemo.Data, :root_value}
+    post "/graphql", GraphQL.Plug.Endpoint, schema: {PeapDemo.Data, :schema}, root_value: {PeapDemo.Data, :root_value}
   end
 
   scope "/", PeapDemo do
